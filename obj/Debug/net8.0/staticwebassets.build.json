@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "GMANTb+STW9e7gSqGc4wPVYavjsh42exdo0XLyxAhwo=",
+  "Source": "TaskFlow-API",
+  "BasePath": "_content/TaskFlow-API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
