@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gabid\\source\\repos\\TaskFlow-API\\TaskFlow-API.csproj": {}
+    "C:\\Users\\gabid\\Documents\\Github\\task-flow-api\\TaskFlow-API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gabid\\source\\repos\\TaskFlow-API\\TaskFlow-API.csproj": {
+    "C:\\Users\\gabid\\Documents\\Github\\task-flow-api\\TaskFlow-API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gabid\\source\\repos\\TaskFlow-API\\TaskFlow-API.csproj",
+        "projectUniqueName": "C:\\Users\\gabid\\Documents\\Github\\task-flow-api\\TaskFlow-API.csproj",
         "projectName": "TaskFlow-API",
-        "projectPath": "C:\\Users\\gabid\\source\\repos\\TaskFlow-API\\TaskFlow-API.csproj",
+        "projectPath": "C:\\Users\\gabid\\Documents\\Github\\task-flow-api\\TaskFlow-API.csproj",
         "packagesPath": "C:\\Users\\gabid\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gabid\\source\\repos\\TaskFlow-API\\obj\\",
+        "outputPath": "C:\\Users\\gabid\\Documents\\Github\\task-flow-api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

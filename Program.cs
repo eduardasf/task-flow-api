@@ -24,6 +24,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Registro de dependências
 builder.Services.AddScoped<TarefaHandle>();
 builder.Services.AddScoped<ITarefaRepository, TarefaRepository>();
+builder.Services.AddScoped<UsuarioHandle>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 // Configuração de localidade para o Brasil
 CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("pt-BR");
