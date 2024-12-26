@@ -28,5 +28,11 @@ namespace TaskFlow_API.Controllers
             return _handle.Handle(id);
         }
 
+        [HttpPatch]
+        public Response<Usuario> UpdatePasswordUsuario(string email, string senhaAtual, string senhaNova)
+        {
+            return _handle.Handle(email, senhaAtual, senhaNova);
+        }
+
     }
 }

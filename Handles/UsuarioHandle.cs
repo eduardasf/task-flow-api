@@ -51,5 +51,12 @@ namespace TaskFlow_API.Handles
                 Data = usuario
             };
         }
+
+        public Response<Usuario> Handle(string email, string senhaAtual, string senhaNova)
+        {
+            var response = _usuario.UpdatePasswordUsuario(email, senhaAtual, senhaNova);
+
+            return response;
+        }
     }
 }

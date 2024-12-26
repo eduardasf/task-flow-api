@@ -1,6 +1,7 @@
 ﻿using TaskFlow_API.Data;
 using TaskFlow_API.Domains;
 using TaskFlow_API.Repositories.IRepositories;
+using TaskFlow_API.Shared;
 
 namespace TaskFlow_API.Repositories
 {
@@ -32,21 +33,45 @@ namespace TaskFlow_API.Repositories
             }
 
             return usuario;
+        } 
+
+        public Response<Usuario> UpdatePasswordUsuario(string email, string senhaAtual, string senhaNova)
+        {
+
+            var usuarioExistente = _context.Usuarios
+                .FirstOrDefault(u => u.Email == email);
+
+            if (usuarioExistente == null)
+            {
+                return new Response<Usuario>
+                {
+                    Success = false,
+                    Message = $"Não foi possível realizar a atualização da senha! Usuário não encotrado.",
+                    Data = null
+                };
+            }
+
+            if (usuarioExistente.Password == senhaAtual)
+            {
+                usuarioExistente.Password = senhaNova;
+                _context.SaveChanges();
+            }
+            else
+            {
+                return new Response<Usuario>
+                {
+                    Success = false,
+                    Message = $"Não foi possível realizar a atualização da senha! Senha atual incorreta.",
+                    Data = null
+                };
+            }
+
+            return new Response<Usuario>
+            {
+                Success = true,
+                Message = $"Senha atualizado com sucesso!",
+                Data = null
+            };
         }
-
-        //public Usuario? UpdateUsuario(Guid id, Usuario usuario)
-        //{
-        //    var usuarioExistente = _context.Usuarios
-        //        .FirstOrDefault (u => u.Id == id);
-
-        //    if (usuarioExistente == null)
-        //    {
-        //        return null;
-        //    }
-
-        //    usuarioExistente.Name = usuario.Name;
-        //    usuarioExistente.Password = usuario.Password;
-        //    usuarioExiste
-        //}
     }
 }

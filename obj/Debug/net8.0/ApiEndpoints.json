@@ -168,6 +168,42 @@
   },
   {
     "ContainingType": "TaskFlow_API.Controllers.UsuarioController",
+    "Method": "UpdatePasswordUsuario",
+    "RelativePath": "api/usuario",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "senhaAtual",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "senhaNova",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "TaskFlow_API.Shared.Response\u00601[[TaskFlow_API.Domains.Usuario, TaskFlow-API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "TaskFlow_API.Controllers.UsuarioController",
     "Method": "GetUsuarioById",
     "RelativePath": "api/usuario/{id}",
     "HttpMethod": "GET",

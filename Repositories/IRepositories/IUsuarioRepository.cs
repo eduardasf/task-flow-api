@@ -1,4 +1,5 @@
 ﻿using TaskFlow_API.Domains;
+using TaskFlow_API.Shared;
 
 namespace TaskFlow_API.Repositories.IRepositories
 {
@@ -6,6 +7,6 @@ namespace TaskFlow_API.Repositories.IRepositories
     {
         Usuario AddUsuario(Usuario usuario);
         Usuario? GetUsuarioById(Guid id);
-       // Usuario UpdateUsuario(Guid id, Usuario usuario);
+        Response<Usuario> UpdatePasswordUsuario(string email, string senhaAtual, string senhaNova);
     }
 }
