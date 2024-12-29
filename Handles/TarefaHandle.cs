@@ -53,9 +53,9 @@ namespace TaskFlow_API.Handles
             };
         }
 
-        public Response<Tarefa> Handle(Guid id, Tarefa tarefa)
+        public Response<Tarefa> HandleUpdateTarefa(Tarefa tarefa)
         {
-            if(id == Guid.Empty)
+            if(tarefa.Id == Guid.Empty)
             {
                 return new Response<Tarefa>
                 {
@@ -65,7 +65,7 @@ namespace TaskFlow_API.Handles
                 };
             }
 
-            var data = _tarefa.UpdateTarefa(id, tarefa);
+            var data = _tarefa.UpdateTarefa(tarefa);
 
             if (data == null)
             {

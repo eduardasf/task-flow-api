@@ -8,7 +8,8 @@ namespace TaskFlow_API.Repositories.IRepositories
         IEnumerable<Tarefa> GetAllTarefas();
         Tarefa? GetTarefaById(Guid id);
         Tarefa AddTarefa(Tarefa tarefa);  
-        Tarefa? UpdateTarefa(Guid id, Tarefa tarefa);
+        Tarefa? UpdateTarefa(Tarefa tarefa);
         Response<Tarefa> DeleteTarefa(Guid id);
+        ResponsePagination GetFilteredTarefas(PageEvent pageEvent);
     }
 }

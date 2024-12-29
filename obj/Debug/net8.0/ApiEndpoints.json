@@ -59,15 +59,15 @@
   },
   {
     "ContainingType": "TaskFlow_API.Controllers.TarefaController",
-    "Method": "GetTarefaById",
-    "RelativePath": "api/tarefa/{id}",
-    "HttpMethod": "GET",
+    "Method": "UpdateTarefa",
+    "RelativePath": "api/tarefa",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
-        "Type": "System.Guid",
+        "Name": "tarefa",
+        "Type": "TaskFlow_API.Domains.Tarefa",
         "IsRequired": true
       }
     ],
@@ -85,20 +85,35 @@
   },
   {
     "ContainingType": "TaskFlow_API.Controllers.TarefaController",
-    "Method": "UpdateTarefa",
+    "Method": "GetAllTarefas",
+    "RelativePath": "api/tarefa",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[TaskFlow_API.Domains.Tarefa, TaskFlow-API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "TaskFlow_API.Controllers.TarefaController",
+    "Method": "GetTarefaById",
     "RelativePath": "api/tarefa/{id}",
-    "HttpMethod": "PUT",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "id",
         "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "tarefa",
-        "Type": "TaskFlow_API.Domains.Tarefa",
         "IsRequired": true
       }
     ],
@@ -131,6 +146,32 @@
     "ReturnTypes": [
       {
         "Type": "TaskFlow_API.Shared.Response\u00601[[TaskFlow_API.Domains.Tarefa, TaskFlow-API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "TaskFlow_API.Controllers.TarefaController",
+    "Method": "GetPagination",
+    "RelativePath": "api/tarefa/pagination",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageEvent",
+        "Type": "TaskFlow_API.Domains.PageEvent",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "TaskFlow_API.Shared.ResponsePagination",
         "MediaTypes": [
           "text/plain",
           "application/json",

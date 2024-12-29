@@ -12,8 +12,8 @@ using TaskFlow_API.Data;
 namespace TaskFlow_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241226002111_Create-Table-Usuarios")]
-    partial class CreateTableUsuarios
+    [Migration("20241228223856_create_database_and_tables_users_and_tarefas")]
+    partial class create_database_and_tables_users_and_tarefas
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,10 @@ namespace TaskFlow_API.Migrations
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

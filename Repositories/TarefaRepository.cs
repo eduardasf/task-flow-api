@@ -16,6 +16,7 @@ namespace TaskFlow_API.Repositories
         public Tarefa AddTarefa(Tarefa tarefa)
         {
             tarefa.Id = Guid.NewGuid();
+            tarefa.Status = StatusTarefa.Pending;
             _context.Tarefas.Add(tarefa);
             _context.SaveChanges();
             return tarefa;
@@ -66,26 +67,56 @@ namespace TaskFlow_API.Repositories
             return tarefa;
         }
 
-
-        public Tarefa? UpdateTarefa(Guid id, Tarefa tarefa)
+        public Tarefa? UpdateTarefa(Tarefa tarefa)
         {
-            var tarefaExistente = _context.Tarefas.Find(id);
+            var tarefaExistente = _context.Tarefas.Find(tarefa.Id);
 
             if (tarefaExistente == null)
             {
                 return null;
             }
-
             tarefaExistente.Nome = tarefa.Nome;
             tarefaExistente.Descricao = tarefa.Descricao;
             tarefaExistente.DataValidade = tarefa.DataValidade;
-            tarefa.Concluido = tarefa.Concluido;
+            tarefaExistente.Status = tarefa.Status;
 
             _context.Tarefas.Update(tarefaExistente);
             _context.SaveChanges();
 
-            return tarefa; 
+            return tarefaExistente;
         }
+
+        public ResponsePagination GetFilteredTarefas(PageEvent pageEvent)
+        {
+            var query = _context.Tarefas.AsQueryable();
+
+            if (!string.IsNullOrEmpty(pageEvent.GlobalFilter))
+            {
+                query = query.Where(t => t.Nome.ToLower().Contains(pageEvent.GlobalFilter.ToLower())
+                                         || (t.Descricao != null && t.Descricao.ToLower().Contains(pageEvent.GlobalFilter.ToLower())));
+            }
+
+            if (pageEvent.Status != StatusTarefa.All)
+            {
+                query = query.Where(t => t.Status == pageEvent.Status);
+            }
+
+            pageEvent.Total = query.Count();
+
+            var tarefas = query
+                .Skip(pageEvent.First ?? 0)
+                .Take(pageEvent.Rows)
+                .ToList();
+
+            return new ResponsePagination
+            {
+                Success = true,
+                Data = tarefas,
+                Message = "Tarefas filtradas com sucesso",
+                PageEvent = pageEvent
+            };
+        }
+
 
     }
 }

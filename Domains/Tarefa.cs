@@ -1,6 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace TaskFlow_API.Domains
 {
+    public enum StatusTarefa
+    {
+        Pending,
+        Completed,
+        Overdue,
+        All
+    }
     public class Tarefa
     {
         [Key]
@@ -15,5 +23,10 @@ namespace TaskFlow_API.Domains
         [Required]
         public DateTime DataValidade { get; set; }
         public bool Concluido { get; set; }
+
+        [Required]
+        [Column(TypeName = "text")]
+        public StatusTarefa Status { get; set; } = StatusTarefa.Pending;
+
     }
 }
