@@ -182,6 +182,37 @@
     ]
   },
   {
+    "ContainingType": "TaskFlow_API.Controllers.TarefaController",
+    "Method": "ChangeStatusTarefa",
+    "RelativePath": "api/tarefa/status/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "concluido",
+        "Type": "System.Boolean",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "TaskFlow_API.Shared.Response\u00601[[TaskFlow_API.Domains.Tarefa, TaskFlow-API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "TaskFlow_API.Controllers.UsuarioController",
     "Method": "AddUsuario",
     "RelativePath": "api/usuario",

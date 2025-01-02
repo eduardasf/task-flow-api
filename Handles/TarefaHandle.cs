@@ -102,5 +102,28 @@ namespace TaskFlow_API.Handles
            return response;
         }
 
+        public Response<Tarefa> Handle(Guid id, bool concluido)
+        {
+            if (id == Guid.Empty)
+            {
+                return new Response<Tarefa>
+                {
+                    Success = false,
+                    Message = $"Não foi possível atualizar o status da tarefa. Id nulo.",
+                    Data = null
+                };
+            }
+
+            var data = _tarefa.ChangeStatusTarefa(id, concluido);
+
+            return new Response<Tarefa>
+            {
+                Success = true,
+                Message = $"Status da tarefa atualizada com sucesso!",
+                Data = data,
+            };
+
+        }
+
     }
 }

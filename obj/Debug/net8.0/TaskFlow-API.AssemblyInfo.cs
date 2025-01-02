@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TaskFlow-API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eac25228306ea3eede860f0a768fe73dc0f5189a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+412f43c17b60b017a39a3cb1ceb62b659a883d33")]
 [assembly: System.Reflection.AssemblyProductAttribute("TaskFlow-API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TaskFlow-API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

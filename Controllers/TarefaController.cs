@@ -57,5 +57,11 @@ namespace TaskFlow_API.Controllers
             return _repository.GetFilteredTarefas(pageEvent);
         }
 
+        [HttpPatch("status/{id}")]
+        public Response<Tarefa> ChangeStatusTarefa([FromRoute] Guid id, [FromBody] bool concluido)
+        {
+            return _handle.Handle(id, concluido);
+        }
+
     }
 }

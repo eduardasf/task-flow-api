@@ -11,5 +11,6 @@ namespace TaskFlow_API.Repositories.IRepositories
         Tarefa? UpdateTarefa(Tarefa tarefa);
         Response<Tarefa> DeleteTarefa(Guid id);
         ResponsePagination GetFilteredTarefas(PageEvent pageEvent);
+        Tarefa? ChangeStatusTarefa(Guid id, bool concluido);
     }
 }

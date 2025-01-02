@@ -108,6 +108,16 @@ namespace TaskFlow_API.Repositories
                 .Take(pageEvent.Rows)
                 .ToList();
 
+            DateTime dataAtual = DateTime.Now;
+            foreach (var item in tarefas)
+            {
+               if(item.DataValidade < dataAtual && item.Status != StatusTarefa.Completed)
+                {
+                    item.Status = StatusTarefa.Overdue;
+                    _context.SaveChanges();
+                }
+            }
+
             return new ResponsePagination
             {
                 Success = true,
@@ -117,6 +127,32 @@ namespace TaskFlow_API.Repositories
             };
         }
 
+        public Tarefa? ChangeStatusTarefa(Guid id, bool concluido)
+        {
+            var tarefa = _context.Tarefas.FirstOrDefault(t => t.Id == id);
+            if (tarefa == null)
+            {
+                return null;
+            }
+
+            DateTime dataAtual = DateTime.Now;
+
+            tarefa.Concluido = concluido;
+
+            if (concluido)
+            {
+                tarefa.Status = StatusTarefa.Completed;
+            }
+            else
+            {
+                tarefa.Status = dataAtual > tarefa.DataValidade
+                    ? StatusTarefa.Overdue
+                    : StatusTarefa.Pending;
+            }
+
+            _context.SaveChanges();
+            return tarefa;
+        }
 
     }
 }
