@@ -89,11 +89,12 @@ namespace TaskFlow_API.Repositories
         public ResponsePagination GetFilteredTarefas(PageEvent pageEvent)
         {
             var query = _context.Tarefas.AsQueryable();
-
             if (!string.IsNullOrEmpty(pageEvent.GlobalFilter))
             {
-                query = query.Where(t => t.Nome.ToLower().Contains(pageEvent.GlobalFilter.ToLower())
-                                         || (t.Descricao != null && t.Descricao.ToLower().Contains(pageEvent.GlobalFilter.ToLower())));
+                query = query.Where(t =>
+                    t.Nome.ToLower().Contains(pageEvent.GlobalFilter.ToLower()) ||
+                    (!string.IsNullOrEmpty(t.Descricao) && t.Descricao.ToLower().Contains(pageEvent.GlobalFilter.ToLower()))
+                );
             }
 
             if (pageEvent.Status != StatusTarefa.All)
@@ -108,15 +109,7 @@ namespace TaskFlow_API.Repositories
                 .Take(pageEvent.Rows)
                 .ToList();
 
-            DateTime dataAtual = DateTime.Now;
-            foreach (var item in tarefas)
-            {
-               if(item.DataValidade < dataAtual && item.Status != StatusTarefa.Completed)
-                {
-                    item.Status = StatusTarefa.Overdue;
-                    _context.SaveChanges();
-                }
-            }
+            UpdateOverdueTasks(tarefas);
 
             return new ResponsePagination
             {
@@ -125,6 +118,19 @@ namespace TaskFlow_API.Repositories
                 Message = "Tarefas filtradas com sucesso",
                 PageEvent = pageEvent
             };
+        }
+
+        private void UpdateOverdueTasks(List<Tarefa> tarefas)
+        {
+            var overdueTasks = tarefas.Where(t => t.DataValidade < DateTime.Now && t.Status != StatusTarefa.Completed).ToList();
+            if (overdueTasks.Any())
+            {
+                foreach (var task in overdueTasks)
+                {
+                    task.Status = StatusTarefa.Overdue;
+                }
+                _context.SaveChanges();
+            }
         }
 
         public Tarefa? ChangeStatusTarefa(Guid id, bool concluido)

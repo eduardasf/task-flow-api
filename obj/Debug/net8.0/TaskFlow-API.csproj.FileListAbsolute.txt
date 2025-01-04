@@ -291,3 +291,4 @@ C:\Users\gabid\Documents\Github\task-flow-api\obj\Debug\net8.0\refint\TaskFlow-A
 C:\Users\gabid\Documents\Github\task-flow-api\obj\Debug\net8.0\TaskFlow-API.pdb
 C:\Users\gabid\Documents\Github\task-flow-api\obj\Debug\net8.0\TaskFlow-API.genruntimeconfig.cache
 C:\Users\gabid\Documents\Github\task-flow-api\obj\Debug\net8.0\ref\TaskFlow-API.dll
+C:\Users\gabid\Documents\Github\task-flow-api\bin\Debug\net8.0\BCrypt.Net-Next.dll

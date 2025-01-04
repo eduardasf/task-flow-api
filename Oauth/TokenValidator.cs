@@ -12,23 +12,29 @@ public class TokenValidator
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(SecretKey);
 
-        var validationParameters = new TokenValidationParameters
-        {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = false, // Use se precisar validar o emissor
-            ValidateAudience = false, // Use se precisar validar a audiência
-            ClockSkew = TimeSpan.Zero // Remove tolerância de tempo
-        };
-
         try
         {
-            var principal = tokenHandler.ValidateToken(token, validationParameters, out _);
-            return principal;
+            var claimsPrincipal = tokenHandler.ValidateToken(token, new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true, // Aqui verifica se o token está expirado
+                ClockSkew = TimeSpan.Zero
+            }, out _);
+
+            return claimsPrincipal;
+        }
+        catch (SecurityTokenExpiredException)
+        {
+            // Se o token estiver expirado, retorna null ou ajusta para continuar com a validação
+            return null;
         }
         catch
         {
-            return null; // Retorne nulo se o token for inválido
+            return null;
         }
     }
 }
+

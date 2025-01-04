@@ -1,6 +1,8 @@
 ﻿using TaskFlow_API.Domains;
 using TaskFlow_API.Repositories.IRepositories;
 using TaskFlow_API.Shared;
+using System.Security.Cryptography;
+using BCrypt.Net;
 
 namespace TaskFlow_API.Handles
 {
@@ -25,7 +27,7 @@ namespace TaskFlow_API.Handles
 
                 };
             }
-
+            usuario.Password = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
             var data = _usuario.AddUsuario(usuario);
 
             return new Response<Usuario>
@@ -57,6 +59,29 @@ namespace TaskFlow_API.Handles
             var response = _usuario.UpdatePasswordUsuario(email, senhaAtual, senhaNova);
 
             return response;
+        }
+
+        public Response<Usuario> Handle(string email)
+        {
+            if(email == null)
+            {
+                return new Response<Usuario>
+                {
+                    Success = false,
+                    Message = $"Não foi possível buscar o usuário com o email especificado.",
+                    Data = null
+
+                };
+            }
+
+            var data = _usuario.GetUsuarioByEmail(email);
+            
+            return new Response<Usuario>
+            {
+                Success = true,
+                Message = $"Usuário encontrado com sucesso!",
+                Data = data
+            };
         }
     }
 }

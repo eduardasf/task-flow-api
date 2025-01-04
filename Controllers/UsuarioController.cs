@@ -34,5 +34,11 @@ namespace TaskFlow_API.Controllers
             return _handle.Handle(email, senhaAtual, senhaNova);
         }
 
+        [HttpGet("email")]
+        public Response<Usuario> GetUsuarioByEmail([FromQuery] string email)
+        {
+            return _handle.Handle(email);
+        }
+
     }
 }

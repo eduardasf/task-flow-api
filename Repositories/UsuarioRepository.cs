@@ -73,5 +73,18 @@ namespace TaskFlow_API.Repositories
                 Data = null
             };
         }
+
+        public Usuario? GetUsuarioByEmail(string email)
+        {
+            var usuario = _context.Usuarios
+                .FirstOrDefault(u => u.Email == email);
+
+            if(usuario == null)
+            {
+                return null;
+            }
+
+            return usuario;
+        }
     }
 }

@@ -8,5 +8,6 @@ namespace TaskFlow_API.Repositories.IRepositories
         Usuario AddUsuario(Usuario usuario);
         Usuario? GetUsuarioById(Guid id);
         Response<Usuario> UpdatePasswordUsuario(string email, string senhaAtual, string senhaNova);
+        Usuario? GetUsuarioByEmail(string email);
     }
 }
