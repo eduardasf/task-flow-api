@@ -28,5 +28,8 @@ namespace TaskFlow_API.Domains
         [Column(TypeName = "text")]
         public StatusTarefa Status { get; set; } = StatusTarefa.Pending;
 
+        [Required]
+        public Guid UsuarioId { get; set; }
+
     }
 }

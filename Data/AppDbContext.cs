@@ -16,6 +16,7 @@ namespace TaskFlow_API.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Configuração para o enum StatusTarefa
             modelBuilder.Entity<Tarefa>()
                 .Property(t => t.Status)
                 .HasConversion(

@@ -75,6 +75,7 @@ namespace TaskFlow_API.Handles
             }
 
             var data = _usuario.GetUsuarioByEmail(email);
+            data.Password = null;
             
             return new Response<Usuario>
             {

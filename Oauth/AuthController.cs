@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskFlow_API.Domains;
 using TaskFlow_API.Repositories.IRepositories;
@@ -29,6 +30,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("refresh-token")]
+    [Authorize]
     public IActionResult RefreshToken([FromQuery] string token)
     {
         var validator = new TokenValidator();

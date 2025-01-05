@@ -89,6 +89,8 @@ namespace TaskFlow_API.Repositories
         public ResponsePagination GetFilteredTarefas(PageEvent pageEvent)
         {
             var query = _context.Tarefas.AsQueryable();
+            query = query.Where(t => t.UsuarioId == pageEvent.UserId);
+
             if (!string.IsNullOrEmpty(pageEvent.GlobalFilter))
             {
                 query = query.Where(t =>

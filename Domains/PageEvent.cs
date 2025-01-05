@@ -8,6 +8,7 @@
         public int Total { get; set; }
         public int? PageCount { get; set; }
         public string? GlobalFilter { get; set; }
+        public Guid UserId { get; set; }
         public StatusTarefa? Status { get; set; }
     }
 }

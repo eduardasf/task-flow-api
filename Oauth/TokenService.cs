@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 
 public class TokenService
 {
-    private const string SecretKey = "b3c3655d9deb26d2fdefd177ca618015"; // Use uma chave segura e guarde em variáveis de ambiente.
+    private const string SecretKey = "b3c3655d9deb26d2fdefd177ca618015";
     public string GenerateToken(string username, string role)
     {
         var tokenHandler = new JwtSecurityTokenHandler();

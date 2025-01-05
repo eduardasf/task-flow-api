@@ -598,6 +598,10 @@
             "type": "string",
             "nullable": true
           },
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
           "status": {
             "$ref": "#/components/schemas/StatusTarefa"
           }
@@ -643,7 +647,8 @@
         "required": [
           "dataValidade",
           "nome",
-          "status"
+          "status",
+          "usuarioId"
         ],
         "type": "object",
         "properties": {
@@ -670,6 +675,10 @@
           },
           "status": {
             "$ref": "#/components/schemas/StatusTarefa"
+          },
+          "usuarioId": {
+            "type": "string",
+            "format": "uuid"
           }
         },
         "additionalProperties": false
@@ -738,6 +747,19 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Insira o token JWT no formato: Bearer {seu_token}",
+        "name": "Authorization",
+        "in": "header"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }

@@ -7,6 +7,7 @@ using TaskFlow_API.Handles;
 using TaskFlow_API.Repositories.IRepositories;
 using TaskFlow_API.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,9 +19,35 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
-// Configuração Swagger
+// Configuração Swagger com suporte a autenticação JWT
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = "Bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Insira o token JWT no formato: Bearer {seu_token}"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
 
 // Adicionando a configuração do DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -55,7 +82,8 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = false,
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(key),
-        ClockSkew = TimeSpan.Zero // Opcional: Elimina a tolerância de tempo para o token
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero // Elimina a tolerância de tempo para o token
     };
 });
 
@@ -85,6 +113,7 @@ app.UseHttpsRedirection();
 // Aplicar a política de CORS
 app.UseCors("AllowLocalhost");
 
+// Adicionar autenticação e autorização
 app.UseAuthentication();
 app.UseAuthorization();
 
