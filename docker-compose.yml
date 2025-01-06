@@ -1,0 +1,14 @@
+﻿services:
+  task_flow_api:
+    container_name: TaskFlowDb
+    image: postgres:15
+    environment:
+      POSTGRES_DB: TaskFlowDb
+      POSTGRES_USER: task_user
+      POSTGRES_PASSWORD: task_pass
+    ports:
+      - '8922:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata: {}

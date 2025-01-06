@@ -1,2 +1,71 @@
+# Sistema Operacional
+################
+# Arquivos gerados pelo Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
 
-/.vs
+# Arquivos gerados pelo MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Arquivos gerados pelo Linux
+.Trash-*
+.nfs*
+
+# Configurações Locais de IDE
+################
+# Rider / JetBrains Rider
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+.vscode/*
+
+# Visual Studio
+*.csproj.user
+*.rsuser
+*.sln.metaproj
+*.sln.metaproj.tmp
+*.tmp
+*.log
+*.vs/
+*.pdb
+_ReSharper*/
+
+# Caches e Configurações Gerais
+################
+# Arquivos binários e temporários criados durante build ou execução
+bin/
+obj/
+out/
+Debug/
+Release/
+
+# Diretórios gerados por ferramentas como dotnet build
+artifacts/
+*.runtimeconfig.json
+
+# Arquivos desnecessários de pacotes
+################
+# Diretórios do NuGet
+*.nuget/
+packages/
+*.nupkg
+# Diretório global do .NET CLI
+dotnet-tools.json
+.dotnet/tools/
+
+# Arquivos de log e debug
+*.log
+
+# Outras ferramentas e dependências
+################
+# Configurações específicas do editor
+*.resharper

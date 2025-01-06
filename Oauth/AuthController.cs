@@ -1,7 +1,4 @@
-﻿using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using TaskFlow_API.Domains;
+﻿using Microsoft.AspNetCore.Mvc;
 using TaskFlow_API.Repositories.IRepositories;
 
 [ApiController]
@@ -23,39 +20,25 @@ public class AuthController : ControllerBase
         if (user != null && BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.Password))
         {
             var token = _tokenService.GenerateToken(loginRequest.Email, "Admin");
-            return Ok(new {Email = user.Email, Token = token });
+            return Ok(new { email = user.Email, Token = token });
         }
 
         return Unauthorized("Usuário ou senha inválidos.");
     }
 
-    [HttpPost("refresh-token")]
-    [Authorize]
-    public IActionResult RefreshToken([FromQuery] string token)
+    [HttpGet("refresh-token")]
+    public IActionResult RefreshToken([FromQuery] string email)
     {
-        var validator = new TokenValidator();
+        var user = _usuarioRepository.GetUsuarioByEmail(email);
 
-        // Valida o token atual
-        var claimsPrincipal = validator.ValidateToken(token);
-        if (claimsPrincipal == null)
+        if (user == null)
         {
-            return Unauthorized("Token inválido ou expirado.");
+            return Unauthorized("Usuário ou senha inválidos.");
         }
 
-        // Gere um novo token usando as informações do token anterior
-        var email = claimsPrincipal.FindFirst(ClaimTypes.Name)?.Value;
-        var role = claimsPrincipal.FindFirst(ClaimTypes.Role)?.Value;
-
-        if (email == null || role == null)
-        {
-            return Unauthorized("Não foi possível gerar um novo token.");
-        }
-
-        var newToken = _tokenService.GenerateToken(email, role);
-
-        return Ok(new { Email = email, Token = newToken });
+        var token = _tokenService.GenerateToken(email, "Admin");
+        return Ok(new { email = user.Email, refreshToken = token });
     }
-
 }
 
 public class LoginRequest
