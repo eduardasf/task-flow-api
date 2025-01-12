@@ -35,42 +35,41 @@ namespace TaskFlow_API.Repositories
             return usuario;
         } 
 
-        public Response<Usuario> UpdatePasswordUsuario(string email, string senhaAtual, string senhaNova)
+        public Response<Usuario> UpdatePasswordUsuario(UpdatePassword form)
         {
 
-            var usuarioExistente = _context.Usuarios
-                .FirstOrDefault(u => u.Email == email);
+            var usr = _context.Usuarios
+                .FirstOrDefault(u => u.Email == form.email);
 
-            if (usuarioExistente == null)
+            if (usr == null)
             {
                 return new Response<Usuario>
                 {
                     Success = false,
-                    Message = $"Não foi possível realizar a atualização da senha! Usuário não encotrado.",
+                    Message = "Usuário não encontrado.",
                     Data = null
                 };
             }
 
-            if (usuarioExistente.Password == senhaAtual)
-            {
-                usuarioExistente.Password = senhaNova;
-                _context.SaveChanges();
-            }
-            else
+            if (!BCrypt.Net.BCrypt.Verify(form.senhaAtual, usr.Password))
             {
                 return new Response<Usuario>
                 {
                     Success = false,
-                    Message = $"Não foi possível realizar a atualização da senha! Senha atual incorreta.",
+                    Message = "Senha atual incorreta.",
                     Data = null
                 };
             }
+
+            usr.Password = BCrypt.Net.BCrypt.HashPassword(form.senhaNova);
+            _context.SaveChanges();
+            usr.Password = null;
 
             return new Response<Usuario>
             {
                 Success = true,
-                Message = $"Senha atualizado com sucesso!",
-                Data = null
+                Message = "Senha atualizada com sucesso!",
+                Data = usr
             };
         }
 

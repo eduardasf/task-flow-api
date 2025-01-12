@@ -30,11 +30,11 @@ namespace TaskFlow_API.Controllers
             return _handle.Handle(id);
         }
 
-        [HttpPatch]
+        [HttpPatch("update-password")]
         [Authorize]
-        public Response<Usuario> UpdatePasswordUsuario(string email, string senhaAtual, string senhaNova)
+        public Response<Usuario> UpdatePasswordUsuario(UpdatePassword form)
         {
-            return _handle.Handle(email, senhaAtual, senhaNova);
+            return _handle.Handle(form);
         }
 
         [HttpGet("email")]
@@ -45,4 +45,11 @@ namespace TaskFlow_API.Controllers
         }
 
     }
+}
+
+public class UpdatePassword
+{
+    public required string email { get; set; }
+    public required string senhaAtual { get; set; }
+    public required string senhaNova { get; set; }
 }

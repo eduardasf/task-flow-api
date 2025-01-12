@@ -1,8 +1,6 @@
 ﻿using TaskFlow_API.Domains;
 using TaskFlow_API.Repositories.IRepositories;
 using TaskFlow_API.Shared;
-using System.Security.Cryptography;
-using BCrypt.Net;
 
 namespace TaskFlow_API.Handles
 {
@@ -24,9 +22,9 @@ namespace TaskFlow_API.Handles
                     Success = false,
                     Message = $"Não foi possível criar um usuário.",
                     Data = null
-
                 };
             }
+
             usuario.Password = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
             var data = _usuario.AddUsuario(usuario);
 
@@ -54,29 +52,36 @@ namespace TaskFlow_API.Handles
             };
         }
 
-        public Response<Usuario> Handle(string email, string senhaAtual, string senhaNova)
+        public Response<Usuario> Handle(UpdatePassword form)
         {
-            var response = _usuario.UpdatePasswordUsuario(email, senhaAtual, senhaNova);
-
-            return response;
+            if (string.IsNullOrWhiteSpace(form.email) || string.IsNullOrWhiteSpace(form.senhaAtual) ||
+                string.IsNullOrWhiteSpace(form.senhaNova))
+            {
+                return new Response<Usuario>
+                {
+                    Success = false,
+                    Message = "E-mail, senha atual e nova senha são obrigatórios.",
+                    Data = null
+                };
+            }
+            return _usuario.UpdatePasswordUsuario(form);
         }
 
         public Response<Usuario> Handle(string email)
         {
-            if(email == null)
+            if (email == null)
             {
                 return new Response<Usuario>
                 {
                     Success = false,
                     Message = $"Não foi possível buscar o usuário com o email especificado.",
                     Data = null
-
                 };
             }
 
             var data = _usuario.GetUsuarioByEmail(email);
             data.Password = null;
-            
+
             return new Response<Usuario>
             {
                 Success = true,

@@ -23,7 +23,7 @@ public class AuthController : ControllerBase
             return Ok(new { email = user.Email, Token = token });
         }
 
-        return Unauthorized("Usuário ou senha inválidos.");
+        return Unauthorized(new { message = "Usuário ou senha inválidos." });
     }
 
     [HttpGet("refresh-token")]
@@ -33,7 +33,7 @@ public class AuthController : ControllerBase
 
         if (user == null)
         {
-            return Unauthorized("Usuário ou senha inválidos.");
+            return Unauthorized(new { message = "Usuário ou senha inválidos." });
         }
 
         var token = _tokenService.GenerateToken(email, "Admin");
