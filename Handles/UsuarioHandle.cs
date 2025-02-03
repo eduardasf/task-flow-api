@@ -28,12 +28,7 @@ namespace TaskFlow_API.Handles
             usuario.Password = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
             var data = _usuario.AddUsuario(usuario);
 
-            return new Response<Usuario>
-            {
-                Success = true,
-                Message = $"Usuário criado com sucesso!",
-                Data = data
-            };
+            return data;
         }
 
         public Response<Usuario> Handle(Guid id)

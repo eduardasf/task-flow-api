@@ -13,13 +13,30 @@ namespace TaskFlow_API.Repositories
         {
             _context = context;
         }
-        public Usuario AddUsuario(Usuario usuario)
+        public Response<Usuario> AddUsuario(Usuario usuario)
         {
+            var usuarioExistente = GetUsuarioByEmail(usuario.Email);
+
+            if (usuarioExistente != null)
+            {
+                return new Response<Usuario>
+                {
+                    Success = false,
+                    Message = "Esse e-mail já está cadastrado.",
+                    Data = null
+                };
+            }
+
             usuario.Id = Guid.NewGuid();
             _context.Usuarios.Add(usuario);
             _context.SaveChanges();
 
-            return usuario;
+            return new Response<Usuario>
+            {
+                Success = true,
+                Message = "Usuário criado com sucesso!",
+                Data = usuario
+            };
         }
 
         public Usuario? GetUsuarioById(Guid id)
@@ -68,7 +85,7 @@ namespace TaskFlow_API.Repositories
             return new Response<Usuario>
             {
                 Success = true,
-                Message = "Senha atualizada com sucesso!",
+                Message = "Senha alterada com sucesso!",
                 Data = usr
             };
         }

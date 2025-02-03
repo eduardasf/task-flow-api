@@ -37,13 +37,13 @@
       }
     },
     "/api/auth/refresh-token": {
-      "post": {
+      "get": {
         "tags": [
           "Auth"
         ],
         "parameters": [
           {
-            "name": "token",
+            "name": "email",
             "in": "query",
             "schema": {
               "type": "string"
@@ -418,31 +418,21 @@
             }
           }
         }
-      },
-      "patch": {
+      }
+    },
+    "/api/usuario/{id}": {
+      "get": {
         "tags": [
           "Usuario"
         ],
         "parameters": [
           {
-            "name": "email",
-            "in": "query",
+            "name": "id",
+            "in": "path",
+            "required": true,
             "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "senhaAtual",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "senhaNova",
-            "in": "query",
-            "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -470,22 +460,30 @@
         }
       }
     },
-    "/api/usuario/{id}": {
-      "get": {
+    "/api/usuario/update-password": {
+      "patch": {
         "tags": [
           "Usuario"
         ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePassword"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePassword"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePassword"
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "OK",
@@ -698,6 +696,29 @@
           },
           "data": {
             "$ref": "#/components/schemas/Tarefa"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdatePassword": {
+        "required": [
+          "email",
+          "senhaAtual",
+          "senhaNova"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "senhaAtual": {
+            "type": "string",
+            "nullable": true
+          },
+          "senhaNova": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
